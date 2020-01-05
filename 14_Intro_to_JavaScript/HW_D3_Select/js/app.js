@@ -19,20 +19,29 @@ var grades = [
     { name: "Wash", score: 79 }
 ];
 
-for(var i = 0; i < grades.length; i++) {
+var names = [];
+var scores = [];
 
-    var student = grades.name;
-    row = tbody.append("tr")
-    row.append("td").text(student)
+grades.forEach((grade) => {
+    Object.entries(grade).forEach(([key, value]) => {
+        if (key === "name") {
+            names.push(value);
+        }
+        else { 
+            scores.push(value);
+        }
+    });
+});
 
-        
-    for(var j = 0; j < grades.length; j++) {
+var namesMapped = grades.map(grade => grade.name);
+var scoresMapped = grades.map(grade => grade.score);
 
-        var score = grades.score;
-        row = tbody.append("tr");
-        row.append("td").text(score)
-    }
-}
+console.log(namesMapped);
+console.log(scoresMapped);
+
+        // var score = grades.score;
+        // row = tbody.append("tr");
+        // row.append("td").text(score)
 
 // var row = tbody.append("tr");
 // var row_2 = tbody.append("tr");
@@ -49,4 +58,3 @@ for(var i = 0; i < grades.length; i++) {
 // row_4.append("td").text(grades[3][1]);
 // row_5.append("td").text(grades[4][0]);
 // row_5.append("td").text(grades[4][1]);
-
