@@ -8,10 +8,17 @@ var button = d3.select("#button");
 button.on("click", function() {
 
   // Select the input element and get the raw HTML node
+  var inputElement = d3.select("#patient-form-input");
 
   // Get the value property of the input element
+  var inputValue = inputElement.property("value");
+}
 
   // Use the form input to filter the data by blood type
+
+  inputValue.on("change", function() {
+    var newText = d3.event.target.value;
+  }
 
   // BONUS: Calculate summary statistics for the age field of the filtered data
 
@@ -20,4 +27,5 @@ button.on("click", function() {
   // Next, use math.js to calculate the mean, median, mode, var, and std of the ages
 
   // Finally, add the summary stats to the `ul` tag
+  d3.select("ul").text(inputValue)
 });
