@@ -2,8 +2,6 @@
 // Initialize variables
 var tableData = data;
 
-var count = 0;
-
 // Create reference elements of the DOM
 var $tbody = document.querySelector("tbody");
 var $dateTimeInput = document.querySelector("#datetime");
@@ -11,127 +9,236 @@ var $cityInput = document.querySelector("#city");
 var $stateInput = document.querySelector("#state");
 var $countryInput = document.querySelector("#country");
 var $shapeInput = document.querySelector("#shape");
-var $filterBtn = document.querySelector("#filter");
-var $pages = document.querySelector("#pages");
-var $loadBtn = document.querySelector("#load");
-var $nextBtn = document.querySelector("#next");
-var $prevBtn = document.querySelector("#prev");
+var $searchBtn = document.querySelector("#filter-btn");
+var $searchBtn1 = document.querySelector("#search1");
+var $searchBtn2 = document.querySelector("#search2");
+var $searchBtn3 = document.querySelector("#search3");
+var $searchBtn4 = document.querySelector("#search4");
 
-// Add event listeners 
-$filterBtn.addEventListener("click", handleFilterButtonClick);
-$loadBtn.addEventListener("click", handleReloadButtonClick);
-$nextBtn.addEventListener("click", handleNextButtonClick);
-$prevBtn.addEventListener("click", handlePrevButtonClick);
-$pages.addEventListener("change", handlePageChange);
+// Add search button event listener
+$searchBtn.addEventListener("click", handleFilterButtonClick);
 
-// Define Event Handler Function 
-// Next Button
-function handleNextButtonClick() {
-    count++;
-    renderTable();
-}
-
-// Prev Button 
-function handlePrevButtonClick() {
-    count --;
-    renderTable();
-}
-
-// Filter Button 
-function handleFilterButtonClick() {
-    var filterDate = $dateTimeInput.value.trim();
-    var filterCity = $cityInput.value.trim().toLowerCase();
-    var filterState = $stateInput.value.trim().toLowerCase();
-    var filterCountry = $countryInput.value.trim().toLowerCase();
-    var filterShape = $shapeInput.value.trim().toLowerCase();
-
-    if (filterDate != '') {
-        filteredData = filteredData.filter(function (date) {
-            var dataDate = date.datetime;
-            retur dataDate === filterDate;
-        });
-
-    }
-
-    if (filterCity !== "") {
-        filteredData = filteredData.filter(function (city) {
-            var dataCity = city.city;
-            return dataCity === filterCity;
-        });
-    }
-
-    if (filterState !== "") {
-        filteredData = filteredData.filter(function (state) {
-            var dataState = state.state;
-            return dataState === filterState;
-        });
-    }
-
-    if (filterCountry !=="") {
-        filteredData = filteredData.filter(function (country) {
-            var dataCountry = country.country;
-            return dataCountry === filterCountry;
-        });
-    }
-
-    if (filterShape !== "") {
-        filteredData = filteredData.filter(function (shape) {
-            var dataShape = shape.shape;
-            return dataShape === filterShape;
-        });
-    }
-
-    renderTable();
-}
-
-// Reload Button 
-function handleReloadButtonClick() {
-    count = 0;
-    filteredDAta = dataSet;
-    $dateTimeInput.value = '';
-    $cityInput.value = '';
-    $stateInput.value = '';
-    $countryInput.value = '';
-    $shapeInput.value = '';
-
-    renderTable();
-}
-
-// Define Page Change Function 
-function handlePageChange() {
-    renderTable();
-}
-
-// Define Render Table function 
+// renderTable function
 function renderTable() {
-    $tbody.innerHTML = '';
+    $tbody.innerHTML = "";
+    for (var i = 0; i < tableData.length; i++) {
 
-    var pages = Number(document.getElementById("pages").value);
+        var ufo = tableData[i];
+        var observations = Object.keys(ufo);
 
-    var start = count * pages + 1;
-    var end = start + pages - 1;
-    var btn;
+        var $row = $tbody.insertRow(i);
 
-    // State of Next button 
-    if (end > filteredData.length) {
-        end = filteredDAta.length;
-        btn = document.getElementById("next");
-        btn.disabled = true;
-    }
-    else {
-        btn = document.getElementById("next");
-        btn.disabled = false;
-    }
+        for (var j = 0; j < observations.length; j++) {
 
-    // State of Previous Button 
-    if (start == 1) {
-        btn = document.getElementById("prev");
-        btn.disabled = true;
+            var observation = observations[j];
+            var $cell = $row.insertCell(j);
+            $cell.innerText = ufo[observation];
+        }
     }
-    else {
-        btn = document.getElementById("prev");
-        btn.disabled = true;
-    }
+}
+
+// Search Button Function 
+function handleSearchButtonClick() {
+    var date = $dateInput.value.trim();
+
+    tableData = dataSet.filter(function(ufo) {
+        var formatDate = ufo.dateTime.toLowerCase();
+
+        return formatDate === date;
+    });
+
+    $(document).ready(function () {
+        var firstObservation = 0;
+        var rowSize = 50;
+        var tableRows = $("#pagetable tbody tr");
+            e.preventDefault();
+            if ($(this).attr("id") == "next") {
+                if (firstObservation + rowSize <= tableRows.length) {
+                    firstObservation += rowSize;)
+                } else {
+                if (firstObservation -= rowSize;)
+                }
+            paginate(firstObservation, rowSize);
+        }
+    });
+
+    var paginate = function(startAt, rowSize) {
+        var endAt = startAt + rowSize -1;
+            $(tableRows).each(function(index) {
+                if(index >+ startAt && index <= endAt) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+        paginate(firstRecord, rowSize);
+    });
+
+    renderTable();
+}
+
+function handleSearchButton1Click() {
+    var city = $cityInput.value.trim();
+
+    tableData = dataSet.filter(function(ufo) {
+        var formatCity = ufo.city.toLowerCase();
+
+        return formatCity === city;
+    });
+
+    $(document).ready(function () {
+        var firstObservation = 0;
+        var rowSize = 50;
+        var tableRows = $("#pagetable tbody tr");
+            e.preventDefault();
+            if ($(this).attr("id") == "next") {
+                if (firstObservation + rowSize <= tableRows.length) {
+                    firstObservation += rowSize;)
+                } else {
+                if (firstObservation -= rowSize;)
+                }
+            paginate(firstObservation, rowSize);
+        }
+    });
+
+    var paginate = function(startAt, rowSize) {
+        var endAt = startAt + rowSize -1;
+            $(tableRows).each(function(index) {
+                if(index >+ startAt && index <= endAt) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+        paginate(firstRecord, rowSize);
+    });
+
+    renderTable();
+}
+
+
+function handleSearchButton2Click() {
+    var state = $stateInput.value.trim();
+
+    tableData = dataSet.filter(function(ufo) {
+        var formatState = ufo.state.toLowerCase();
+
+        return formatState === state;
+    });
+
+    $(document).ready(function () {
+        var firstObservation = 0;
+        var rowSize = 50;
+        var tableRows = $("#pagetable tbody tr");
+            e.preventDefault();
+            if ($(this).attr("id") == "next") {
+                if (firstObservation + rowSize <= tableRows.length) {
+                    firstObservation += rowSize;)
+                } else {
+                if (firstObservation -= rowSize;)
+                }
+            paginate(firstObservation, rowSize);
+        }
+    });
+
+    var paginate = function(startAt, rowSize) {
+        var endAt = startAt + rowSize -1;
+            $(tableRows).each(function(index) {
+                if(index >+ startAt && index <= endAt) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+        paginate(firstRecord, rowSize);
+    });
+
+    renderTable();
+}
+
+
+function handleSearchButton3Click() {
+    var country = $countryInput.value.trim();
+
+    tableData = dataSet.filter(function(ufo) {
+        var formatCountry = ufo.country.toLowerCase();
+
+        return formatCountry === country;
+    });
+
+    $(document).ready(function () {
+        var firstObservation = 0;
+        var rowSize = 50;
+        var tableRows = $("#pagetable tbody tr");
+            e.preventDefault();
+            if ($(this).attr("id") == "next") {
+                if (firstObservation + rowSize <= tableRows.length) {
+                    firstObservation += rowSize;)
+                } else {
+                if (firstObservation -= rowSize;)
+                }
+            paginate(firstObservation, rowSize);
+        }
+    });
+
+    var paginate = function(startAt, rowSize) {
+        var endAt = startAt + rowSize -1;
+            $(tableRows).each(function(index) {
+                if(index >+ startAt && index <= endAt) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+        paginate(firstRecord, rowSize);
+    });
+
+    renderTable();
+}
+
+
+function handleSearchButton4Click() {
+    var shape = $shapeInput.value.trim();
+
+    tableData = dataSet.filter(function(ufo) {
+        var formatShape = ufo.shape.toLowerCase();
+
+        return formatShape === shape;
+    });
+
+    $(document).ready(function () {
+        var firstObservation = 0;
+        var rowSize = 50;
+        var tableRows = $("#pagetable tbody tr");
+            e.preventDefault();
+            if ($(this).attr("id") == "next") {
+                if (firstObservation + rowSize <= tableRows.length) {
+                    firstObservation += rowSize;)
+                } else {
+                if (firstObservation -= rowSize;)
+                }
+            paginate(firstObservation, rowSize);
+        }
+    });
+
+    var paginate = function(startAt, rowSize) {
+        var endAt = startAt + rowSize -1;
+            $(tableRows).each(function(index) {
+                if(index >+ startAt && index <= endAt) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+        paginate(firstRecord, rowSize);
+    });
+
+    renderTable();
 }
 
 renderTable();

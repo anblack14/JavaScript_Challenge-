@@ -19,7 +19,7 @@ button.on("click", function() {
   inputValue.on("change", function() {
     var newText = d3.event.target.value;
   }
-
+});
   // BONUS: Calculate summary statistics for the age field of the filtered data
 
   // First, create an array with just the age values
@@ -27,5 +27,7 @@ button.on("click", function() {
   // Next, use math.js to calculate the mean, median, mode, var, and std of the ages
 
   // Finally, add the summary stats to the `ul` tag
-  d3.select("ul").text(inputValue)
-});
+//   d3.select("ul").text(inputValue)
+// });
+
+//Look at 16.3, Activity 4

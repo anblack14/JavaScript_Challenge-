@@ -19,25 +19,33 @@ var grades = [
     { name: "Wash", score: 79 }
 ];
 
-var names = [];
-var scores = [];
-
-grades.forEach((grade) => {
-    Object.entries(grade).forEach(([key, value]) => {
-        if (key === "name") {
-            names.push(value);
-        }
-        else { 
-            scores.push(value);
-        }
+d3.select("tbody").selectAll("tr")
+    .data(grades)
+    .enter()
+    .append("tr")
+    .html(function(d) {
+        return `<td>${d.name}</td><td>${d.score}</td>`
     });
-});
 
-var namesMapped = grades.map(grade => grade.name);
-var scoresMapped = grades.map(grade => grade.score);
+// var names = [];
+// var scores = [];
 
-console.log(namesMapped);
-console.log(scoresMapped);
+// grades.forEach((grade) => {
+//     Object.entries(grade).forEach(([key, value]) => {
+//         if (key === "name") {
+//             names.push(value);
+//         }
+//         else { 
+//             scores.push(value);
+//         }
+//     });
+// });
+
+// var namesMapped = grades.map(grade => grade.name);
+// var scoresMapped = grades.map(grade => grade.score);
+
+// console.log(namesMapped);
+// console.log(scoresMapped);
 
         // var score = grades.score;
         // row = tbody.append("tr");
